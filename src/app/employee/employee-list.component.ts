@@ -4,7 +4,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Observable} from 'rxjs/Rx';
 import {IEmployee} from './shared/employee.model';
 
-const MAX_TIME_IN_SEC: number = 5;
+const MAX_TIME_IN_SEC: number = 60;
 
 @Component({
   selector: 'app-emp-list',
