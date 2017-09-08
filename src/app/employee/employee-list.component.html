@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row"> 
+        <div class="col-md-4 form-inline">
+            <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search text by name"/>
+            </div> 
+
+        </div>
+        <div class="col-md-4 form-inline">
+                <div class="form-group">
+                        <button type="submit" class="btn btn-default pointer" (click)="sort('joining_date')">Sort By Joining Date</button>
+                </div>
+        </div>
+        <div class="col-md-4">
+                <h3 class="text text-danger"> (Timer: {{dispTimer}}) </h3>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th> Name </th>
+                    <th> Joining Date 
+                        <span *ngIf="joiningDateSorted">(Ascending Oder)</span>
+                        <span *ngIf="!joiningDateSorted">(Unsorted)</span>
+                    </th>
+                    <th> Age </th>
+                </tr>
+            </thead>
+            <tbody class=""> 
+                <!-- <tr *ngFor="let employee of empList  |empname: searchText"> --> <!-- Manual Filter -->
+                <tr *ngFor="let employee of empList  |filter: searchText"> <!-- build-in filter as npm module -->
+                    <td> {{employee.name}} </td>
+                    <td> {{employee.joining_date |  date:'dd/MM/yyyy'}} </td>
+                    <td> {{employee.age}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
