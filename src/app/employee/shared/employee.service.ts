@@ -19,8 +19,30 @@ export class EmployeeService {
         }
     ];
 
+    addEmployee(emp: IEmployee): void {
+        this.list.push(emp);
+    }
+
+    fetchEmp(iterator: number): IEmployee {
+        let employee: IEmployee;
+        switch (iterator) {
+            case 1:
+                employee = this.list.filter(emp => emp.name.toLowerCase() === 'jon')[0];
+                break;
+            case 2:
+                employee = this.list.filter(emp => emp.name.toLowerCase() === 'viki')[0];
+                break;
+            case 3:
+                employee = this.list.filter(emp => emp.name.toLowerCase() === 'abc')[0];
+                break;
+            case 4:
+                employee = this.list.filter(emp => emp.name.toLowerCase() === 'xyz')[0];
+                break;
+        }
+        return employee;
+    }
     // This function is for reversing two numbers
-      reverseNum(num: number) {
+      reverseNum(num: number): number {
         let resNum: number = 0, mod: number;
         while (num > 0) {
           mod = num % 10;
