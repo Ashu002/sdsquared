@@ -10,13 +10,14 @@ import { EmployeeService } from './employee/shared/employee.service';
 import { EmployeeNamePipe } from './employee/shared/employee-name.pipe';
 
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
     AppComponent, EmployeeListComponent, EmployeeNamePipe
   ],
   imports: [
-    BrowserModule, FormsModule, ToastModule.forRoot(), BrowserAnimationsModule
+    BrowserModule, FormsModule, ToastModule.forRoot(), BrowserAnimationsModule, Ng2SearchPipeModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

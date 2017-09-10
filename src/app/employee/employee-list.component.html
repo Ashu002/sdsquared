@@ -28,8 +28,8 @@
                     <th> Age </th>
                 </tr>
             </thead>
-            <tbody class="">
-                <tr *ngFor="let employee of empList  | empname: searchText">
+            <tbody class=""> 
+                <tr *ngFor="let employee of empList  |filter: searchText">
                     <td> {{employee.name}} </td>
                     <td> {{employee.joining_date |  date:'dd/MM/yyyy'}} </td>
                     <td> {{employee.age}} </td>
