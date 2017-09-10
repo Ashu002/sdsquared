@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { EmployeeService } from './shared/employee.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Observable} from 'rxjs/Rx';
 import {IEmployee} from './shared/employee.model';
 
-const MAX_TIME_IN_SEC: number = 60;
+const MAX_TIME_IN_SEC: number = 5;
 
 @Component({
   selector: 'app-emp-list',
@@ -12,15 +12,19 @@ const MAX_TIME_IN_SEC: number = 60;
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  constructor(private empService: EmployeeService, public toastr: ToastsManager, vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
-  }
 
-  empList: Array<IEmployee> = this.empService.list;
+  empList: Array<IEmployee>;
   dispTimer: number = MAX_TIME_IN_SEC; // Variable used to display the timer
   joiningDateSorted: boolean = false; // Flag use to check wheater joining_date is already sorted or not
   iterator: number = 1; // This is for iteration i.e. which employee we have to insert
   // Function to perform the soring order for joining date
+
+  constructor(private empService: EmployeeService, public toastr: ToastsManager,
+     vcr: ViewContainerRef, private changeDetectorRef: ChangeDetectorRef) {
+    this.toastr.setRootViewContainerRef(vcr);
+    this.empList  = this.empService.list;
+  }
+
   sort(property): void {
     if (!this.joiningDateSorted) {
       this.empList.sort(function(pre, next){
@@ -49,12 +53,14 @@ export class EmployeeListComponent implements OnInit {
       newEmp.joining_date.setDate(newEmp.joining_date.getDate() + 1);
       newEmp.age = this.empService.reverseNum(this.empService.fetchEmp(this.iterator).age);
       this.empService.addEmployee(newEmp);
-      this.iterator++;
+      this.empList = this.empService.list;
+      this.changeDetectorRef.markForCheck();
       this.joiningDateSorted = false; // A new record insterted, enabling again for sorting.
       this.empList.length === this.empService.maxEmployee ?
         this.toastr.info(`Done!!! Total ${this.iterator} employee has been added.`) :
         this.toastr.success(`New employee added (${this.iterator}).`, 'Success!');
       this.empList.length === this.empService.maxEmployee ? this.dispTimer = 0 : this.dispTimer = MAX_TIME_IN_SEC;
+      this.iterator++;
     } else {
       this.dispTimer = this.dispTimer - 1;
     }
