@@ -6,10 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './employee/employee-list.component';
 
-import { EmployeeService } from './employee/services/employee.service';
-import { EmployeeNamePipe } from './employee/pipes/employee-name.pipe';
+import { EmployeeService } from './employee/shared/employee.service';
+import { EmployeeNamePipe } from './employee/shared/employee-name.pipe';
 
-import {ToastModule, ToastsManager} from 'ng2-toastr/ng2-toastr';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
   declarations: [
