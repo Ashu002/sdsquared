@@ -4,7 +4,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Observable} from 'rxjs/Rx';
 import {IEmployee} from './shared/employee.model';
 
-const MAX_TIME_IN_SEC: number = 5;
+const MAX_TIME_IN_SEC: number = 60;
 
 @Component({
   selector: 'app-emp-list',
@@ -17,7 +17,7 @@ export class EmployeeListComponent implements OnInit {
   dispTimer: number = MAX_TIME_IN_SEC; // Variable used to display the timer
   joiningDateSorted: boolean = false; // Flag use to check wheater joining_date is already sorted or not
   iterator: number = 1; // This is for iteration i.e. which employee we have to insert
-  // Function to perform the soring order for joining date
+  searchText: string;
 
   constructor(private empService: EmployeeService, public toastr: ToastsManager,
      vcr: ViewContainerRef, private changeDetectorRef: ChangeDetectorRef) {
@@ -25,6 +25,7 @@ export class EmployeeListComponent implements OnInit {
     this.empList  = this.empService.list;
   }
 
+  // Function to perform the soring order for joining date
   sort(property): void {
     if (!this.joiningDateSorted) {
       this.empList.sort(function(pre, next){
